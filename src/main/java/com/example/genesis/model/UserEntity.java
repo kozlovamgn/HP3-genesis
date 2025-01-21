@@ -1,4 +1,11 @@
 package com.example.genesis.model;
 
-public class UserEntity {
-}
+import java.util.UUID;
+
+public record UserEntity(
+        Long id,
+        String name,
+        String surname,
+        String personId,
+        UUID uuid
+) {}

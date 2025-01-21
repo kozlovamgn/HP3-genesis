@@ -1,4 +1,7 @@
 package com.example.genesis.controller.model;
 
-public class UpdateUserRequest {
-}
+public record UpdateUserRequest (
+    Long id,
+    String name,
+    String surname
+) {}

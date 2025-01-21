@@ -1,4 +1,8 @@
 package com.example.genesis.controller.model;
 
-public class UserResponse {
-}
+public record GetUserResponse (
+        Long id,
+        String name,
+        String surname
+) {}
+

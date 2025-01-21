@@ -10,18 +10,16 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 @Service
-public class PersonIdGenerator {
+public final class PersonIdValidator {
     private static final String DATA_PERSON_ID_RESOURCE = "/dataPersonId.txt";
 
-    private static final Random random = new Random();
     private static final List<String> personIdList = new ArrayList<>();
 
     @PostConstruct
     private void init() throws CannotReadPersonIdListException {
-        try (InputStream is = Objects.requireNonNull(PersonIdGenerator.class.getResourceAsStream(DATA_PERSON_ID_RESOURCE));
+        try (InputStream is = Objects.requireNonNull(PersonIdValidator.class.getResourceAsStream(DATA_PERSON_ID_RESOURCE));
              InputStreamReader isr = new InputStreamReader(is);
              BufferedReader br = new BufferedReader(isr)) {
 
@@ -38,8 +36,8 @@ public class PersonIdGenerator {
         }
     }
 
-    public String generateId() {
-        int index = random.nextInt(personIdList.size());
-        return personIdList.get(index);
+    public void validateId(String id) throws InvalidPersonIdException {
+        if (!personIdList.contains(id))
+            throw new InvalidPersonIdException("Person ID " + id + " is not valid");
     }
 }
